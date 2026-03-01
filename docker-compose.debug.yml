@@ -1,10 +1,10 @@
+---
 services:
-
   db:
-    image: postgres:14.15-alpine
+    image: postgres:14.22-alpine
     container_name: db
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     env_file:
       - ./.env
     ports:
@@ -49,10 +49,8 @@ services:
       - internal
 
   redis:
-    image: redis:7.4.1-alpine
+    image: redis:8.6.1-alpine
     container_name: redis
-    volumes:
-      - ./redis_data:/data
     networks:
       - internal
 
@@ -90,7 +88,7 @@ services:
     volumes:
       - django_static:/usr/share/nginx/html/static
     restart: unless-stopped
-    depends_on: 
+    depends_on:
       - django
       - vue
     ports:
@@ -100,6 +98,7 @@ services:
       - proxy
 
 volumes:
+  postgres_data:
   django_static:
 
 networks:

@@ -1,7 +1,7 @@
+---
 services:
-
   traefik:
-    image: traefik:2.11.14
+    image: traefik:2.11.38
     container_name: traefik
     restart: unless-stopped
     command:
@@ -22,16 +22,16 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./letsencrypt_data:/letsencrypt
+      - letsencrypt_data:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - proxy
 
   db:
-    image: postgres:14.15-alpine
+    image: postgres:14.22-alpine
     container_name: db
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     env_file:
       - ./.env
     ports:
@@ -44,7 +44,7 @@ services:
   django:
     build: ./django-hallow-ethical-hacking
     container_name: django
-    command: gunicorn --bind :8000 --workers 3 DjangoHallowEthicalHacking.wsgi 
+    command: gunicorn --bind :8000 --workers 3 DjangoHallowEthicalHacking.wsgi
     volumes:
       - django_static:/app/static
     env_file:
@@ -82,10 +82,8 @@ services:
       - internal
 
   redis:
-    image: redis:7.4.1-alpine
+    image: redis:8.6.1-alpine
     container_name: redis
-    volumes:
-      - ./redis_data:/data
     labels:
       - traefik.enable=false
     networks:
@@ -114,7 +112,7 @@ services:
       - django_static:/usr/share/nginx/html/static
       - vue_dst:/usr/share/nginx/html
     restart: unless-stopped
-    depends_on: 
+    depends_on:
       - django
       - vue
     labels:
@@ -130,6 +128,8 @@ services:
       - proxy
 
 volumes:
+  letsencrypt_data:
+  postgres_data:
   django_static:
   vue_dst:
 

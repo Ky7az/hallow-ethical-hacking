@@ -1,4 +1,4 @@
-FROM nginx:1.27.3-alpine
+FROM nginx:1.29.5-alpine
 
 COPY ./hallow.conf /etc/nginx/conf.d/hallow.conf
 
