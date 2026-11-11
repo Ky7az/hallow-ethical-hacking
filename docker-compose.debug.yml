@@ -76,6 +76,9 @@ services:
       context: ./vue-hallow-ethical-hacking
       dockerfile: ./Dockerfile
     container_name: vue
+    environment:
+      VITE_API_HOST: 127.0.0.1
+      VITE_API_PROTO: http
     command: yarn dev
     develop:
       watch:
@@ -102,6 +105,8 @@ services:
       context: ./nginx
       dockerfile: ./Dockerfile
     container_name: nginx
+    environment:
+      DOMAIN: ${DOMAIN:-127.0.0.1}
     volumes:
       - django_static:/usr/share/nginx/html/static
     restart: unless-stopped

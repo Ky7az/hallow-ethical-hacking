@@ -125,6 +125,8 @@ services:
       context: ./nginx
       dockerfile: ./Dockerfile
     container_name: nginx
+    environment:
+      DOMAIN: ${DOMAIN}
     volumes:
       - django_static:/usr/share/nginx/html/static
       - vue_dst:/usr/share/nginx/html

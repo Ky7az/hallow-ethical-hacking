@@ -33,11 +33,6 @@ DB_PORT=5432
 REDIS_URL=redis://redis:6379
 ```
 
-## Update Domain Name
-Edit `nginx/hallow.conf`, change the `server_name` directive with your domain name.  
-Edit `vue-hallow-ethical-hacking/src/storage/service.js`, change the `API_HOST` const with your domain name.
-
-
 ## Build/Run Containers
 ```
 $ docker network create proxy
@@ -57,7 +52,6 @@ Ctrl-C : Copy (Pentest)
 ```
 
 ## Todo
-- Migrate from Vuex to Pinia
 - Add support to more watch sources  
 - Add more preconfigured pentest actions/commands  
 - Better handle exceptions/errors on frontend
